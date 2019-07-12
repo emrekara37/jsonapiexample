@@ -17,21 +17,17 @@ using Microsoft.Extensions.Options;
 
 namespace JsonApiExample
 {
-   
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BlogDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddJsonApi<BlogDbContext>();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -42,8 +38,7 @@ namespace JsonApiExample
             {
                 app.UseDeveloperExceptionPage();
             }
-
-           
+            app.UseJsonApi();
             app.UseMvc();
         }
     }
